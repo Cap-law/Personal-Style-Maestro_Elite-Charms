@@ -1,0 +1,110 @@
+# Import necessary libraries
+import pandas as pd
+
+# Define classes and attributes
+fashion_items = {
+    'Pant': ['Jeans', 'Trousers', 'Leggings', 'Joggers', 'Cargo pants'],
+    'Traditional Clothes': ['Sarees', 'Salwar Kameez', 'Lehengas', 'Kurtas', 'Sherwanis'],
+    'Tops': ['Shirts', 'Blouses', 'Kurtis', 'Tunics', 'Sweatshirts'],
+    'Dresses': ['Formal gowns', 'Party dresses', 'Sundresses', 'Maxi dresses', 'Mini dresses'],
+    'Outerwear': ['Jackets', 'Coats', 'Blazers', 'Hoodies', 'Scarves'],
+    'Footwear': ['Shoes', 'Boots', 'Sandals', 'Sneakers', 'Loafers'],
+    'Accessories': ['Hats', 'Bags', 'Jewelry', 'Watches', 'Sunglasses']
+}
+
+attributes = {
+    'Style': ['formal', 'casual', 'semi-formal'],
+    'Occasion': ['wedding', 'party', 'daily wear'],
+    'Season': ['summer', 'winter', 'spring', 'fall'],
+    'Fabric': ['cotton', 'polyester', 'silk', 'wool'],
+    'Color': ['red', 'blue', 'green', 'yellow', 'black', 'white']
+}
+
+# Convert to DataFrame for easier manipulation and display
+df_fashion_items = pd.DataFrame([(k, v) for k, vals in fashion_items.items() for v in vals], columns=['Category', 'Item'])
+df_attributes = pd.DataFrame([(k, v) for k, vals in attributes.items() for v in vals], columns=['Attribute', 'Value'])
+
+# Display the data
+print("Fashion Items:")
+print(df_fashion_items)
+
+print("\nAttributes:")
+print(df_attributes)
+
+def categorize_fashion_item(item, category, style, occasion, season, fabric, color):
+    return {
+        'Item': item,
+        'Category': category,
+        'Style': style,
+        'Occasion': occasion,
+        'Season': season,
+        'Fabric': fabric,
+        'Color': color
+    }
+
+# Example: Categorize a new item
+new_item = categorize_fashion_item('T-Shirt', 'Tops', 'casual', 'daily wear', 'summer', 'cotton', 'blue')
+
+# Convert to DataFrame for display
+df_new_item = pd.DataFrame([new_item])
+
+print("\nNew Fashion Item:")
+print(df_new_item)
+
+# Sample dataset of fashion items (for demonstration purposes)
+sample_data = [
+    categorize_fashion_item('Jeans', 'Pant', 'casual', 'daily wear', 'all seasons', 'denim', 'blue'),
+    categorize_fashion_item('Trousers', 'Pant', 'formal', 'office wear', 'all seasons', 'cotton', 'black'),
+    categorize_fashion_item('Saree', 'Traditional Clothes', 'formal', 'wedding', 'all seasons', 'silk', 'red'),
+    categorize_fashion_item('Blouse', 'Tops', 'casual', 'daily wear', 'summer', 'cotton', 'white'),
+    categorize_fashion_item('Party Dress', 'Dresses', 'semi-formal', 'party', 'all seasons', 'polyester', 'green'),
+    categorize_fashion_item('Jacket', 'Outerwear', 'casual', 'daily wear', 'winter', 'wool', 'black'),
+    categorize_fashion_item('Sneakers', 'Footwear', 'casual', 'daily wear', 'all seasons', 'synthetic', 'white'),
+    categorize_fashion_item('Watch', 'Accessories', 'formal', 'all occasions', 'all seasons', 'metal', 'silver')
+]
+
+# Convert sample data to DataFrame
+df_sample_data = pd.DataFrame(sample_data)
+
+# Display sample data
+print("\nSample Fashion Items Dataset:")
+print(df_sample_data)
+
+def filter_fashion_items(df, **filters):
+    query = ' & '.join([f'{key} == "{value}"' for key, value in filters.items() if value])
+    return df.query(query) if query else df
+
+# Example: Filter items by category and color
+filtered_items = filter_fashion_items(df_sample_data, Category='Pant', Color='blue')
+
+print("\nFiltered Fashion Items:")
+print(filtered_items)
+
+# Install Kaggle API client
+!pip install kaggle
+
+# Upload your Kaggle API key file
+from google.colab import files
+uploaded = files.upload()
+
+# Move the uploaded file into the correct directory
+!mkdir -p ~/.kaggle
+!mv kaggle.json ~/.kaggle/
+!chmod 600 ~/.kaggle/kaggle.json
+
+
+!kaggle datasets download -d fashion-mnist/fashionmnist
+
+import zipfile
+with zipfile.ZipFile('fashion-mnist/fashionmnist.zip', 'r') as zip_ref:
+    zip_ref.extractall('data/')
+
+# Load the dataset into Pandas DataFrame
+import pandas as pd
+df = pd.read_csv('data/project survey.csv')
+
+# Display the loaded dataset
+print("Dataset preview:")
+print(df.head())
+
+
