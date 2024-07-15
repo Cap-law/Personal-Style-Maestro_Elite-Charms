@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Style Maestro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Personal Style Maestro</h1>
+    </header>
+    <main>
+        <section id="user-profile">
+            <h2>User Profile</h2>
+            <form id="profile-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                
+                <label for="bmi">BMI:</label>
+                <input type="number" id="bmi" name="bmi" step="0.1">
+                
+                <label for="preferences">Fashion Preferences:</label>
+                <textarea id="preferences" name="preferences"></textarea>
+                
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+        <section id="recommendations">
+            <h2>Fashion Recommendations</h2>
+            <div id="recommendation-list"></div>
+        </section>
+    </main>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+#CSS
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+}
+
+main {
+    padding: 1em;
+}
+
+form {
+    background-color: #fff;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-top: 1em;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    margin-top: 1em;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+#recommendations {
+    margin-top: 2em;
+}
+
+#recommendation-list {
+    background-color: #fff;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#javascript
+document.getElementById('profile-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const bmi = document.getElementById('bmi').value;
+    const preferences = document.getElementById('preferences').value;
+
+    // Example: Fetch recommendations based on user profile
+    const recommendations = [
+        "Trendy jeans",
+        "Casual t-shirts",
+        "Formal blazers"
+    ];
+
+    displayRecommendations(recommendations);
+});
+
+function displayRecommendations(recommendations) {
+    const recommendationList = document.getElementById('recommendation-list');
+    recommendationList.innerHTML = '';
+
+    recommendations.forEach(rec => {
+        const recItem = document.createElement('div');
+        recItem.className = 'recommendation-item';
+        recItem.textContent = rec;
+        recommendationList.appendChild(recItem);
+    });
+}
